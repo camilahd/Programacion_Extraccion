@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By # queda pendiente
 from webdriver_manager.chrome import ChromeDriverManager
 #from bs4 import BeautifulSoup
 
-def busqueda_amazon(producto_buscar, pestañas_cantidad):
+def busqueda_amazon(producto_buscar, producto_cantidad):
     s = Service(ChromeDriverManager().install())
     opc = Options()
     opc.add_argument("--window-size= 1020, 1200")
@@ -30,31 +30,26 @@ def busqueda_amazon(producto_buscar, pestañas_cantidad):
     time.sleep(2)
 
 
-    for pestaña in range(pestañas_cantidad):
-        if pestaña >= 1:
-            pestaña_e= amazon.find_element(By.CLASS_NAME, "s-pagination-item.s-pagination-button")
-            pestaña_e.click()
+    for i in range(producto_cantidad):
         nombres = amazon.find_elements(By.CLASS_NAME, 'a-size-base-plus.a-color-base.a-text-normal')
         ratings = amazon.find_elements(By.CLASS_NAME, 'a-size-base.puis-bold-weight-text')
         precios = amazon.find_elements(By.CLASS_NAME, 'a-price')
         fechas_entrega = amazon.find_elements(By.CLASS_NAME, 'a-color-base.a-text-bold')
+        # Añade la información del producto actual a los datos
+        datos["Nombre"].append(nombres[i].text)
 
-        for i in range(len(nombres)):
-            # Añade la información del producto actual a los datos
-            datos["Nombre"].append(nombres[i].text)
+        if len(ratings) > 0:
+            datos["Rating"].append(ratings[i].text)
+        else:
+            datos["Rating"].append("None")
+        precio_text = precios[i].text
+        precio_numero = precio_text.replace("$", "")
 
-            if len(ratings) > 0:
-                datos["Rating"].append(ratings[i].text)
-            else:
-                datos["Rating"].append("None")
-            precio_text = precios[i].text
-            precio_numero = precio_text.replace("$", "")
-
-            if len(precio_numero) > 0:
-                datos["Precio"].append(precio_numero)
-            else:
-                datos["Precio"].append("None")
-            datos["Fecha de entrega"].append(fechas_entrega[i].text)
+        if len(precio_numero) > 0:
+            datos["Precio"].append(precio_numero)
+        else:
+            datos["Precio"].append("None")
+        datos["Fecha de entrega"].append(fechas_entrega[i].text)
 
     amazon.close()
     datos_df = pd.DataFrame(datos)
@@ -63,5 +58,5 @@ def busqueda_amazon(producto_buscar, pestañas_cantidad):
     return datos_df
 
 producto_buscar = input("Ingrese el producto que desea buscar:")
-pestañas_cantidad = int(input("¿Cuantos pestañas de productos desea buscar?"))
-busqueda_amazon(producto_buscar, pestañas_cantidad)
+producto_cantidad = int(input("¿Cuantos pestañas de productos desea buscar?"))
+busqueda_amazon(producto_buscar, producto_cantidad)

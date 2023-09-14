@@ -33,7 +33,7 @@ def busqueda_amazon(producto_buscar, producto_cantidad):
     for i in range(producto_cantidad):
         nombres = amazon.find_elements(By.CLASS_NAME, 'a-size-base-plus.a-color-base.a-text-normal')
         ratings = amazon.find_elements(By.CLASS_NAME, 'a-size-base.puis-bold-weight-text')
-        precios = amazon.find_elements(By.CLASS_NAME, 'a-price')
+        precios = amazon.find_elements(By.CLASS_NAME, 'a-offscreen')
         fechas_entrega = amazon.find_elements(By.CLASS_NAME, 'a-color-base.a-text-bold')
         # Añade la información del producto actual a los datos
         datos["Nombre"].append(nombres[i].text)

@@ -2,6 +2,19 @@
 #27-09-23
 #Meta 1.5
 
+l = [10,3,5,9,15,1]
+
+def calculo(l):
+   lista = []
+   for i in l:
+       if i % 5 == 0 :
+           lista.append(True)
+       else:
+           lista.append(False)
+   return lista
+
+print(calculo(l))
+
 """
 #Numero 3
 lista = [1, 3, 1, 4, 5, 3, 7]
@@ -42,7 +55,7 @@ txtPassword.send_keys("Hola1")
 time.sleep(2)
 
 btnLogin= navegador.find_element(By.CLASS_NAME, "button.button--primary")
-btnLogin.click()
+btnLogin.click() #Error al dar click
 
 navegador.save_screenshot("archivos/img_test_.png")
 #navegador.find

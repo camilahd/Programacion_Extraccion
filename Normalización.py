@@ -1,6 +1,6 @@
 # Camila Elizabeth Hernandez Alaniz
 # 951
-# Ejercicios Preprocesamiento Normalización.
+# Ejercicios Preprocesamiento Normalización
 
 import pandas as pd
 

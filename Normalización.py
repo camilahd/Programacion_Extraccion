@@ -1,6 +1,6 @@
 # Camila Elizabeth Hernandez Alaniz
 # 951
-# Ejercicios Preprocesamiento duplicidad y valores Nulos.
+# Ejercicios Preprocesamiento Normalización.
 
 import pandas as pd
 
